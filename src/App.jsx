@@ -1,4 +1,3 @@
-import "./App.css";
 import DepthMeasurement from "./components/DepthMeasurement";
 
 function App() {
