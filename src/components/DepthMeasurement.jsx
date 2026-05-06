@@ -23,41 +23,109 @@ function calculateAction(_prevState, formData) {
 	);
 }
 
+function ResultCard({ label, value }) {
+	return (
+		<div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
+			<p className="text-xs font-semibold uppercase tracking-wide text-blue-500">
+				{label}
+			</p>
+			<p className="mt-1 text-base font-semibold text-gray-900">{value}</p>
+		</div>
+	);
+}
+
 export default function DepthMeasurement() {
 	const [results, formAction] = useActionState(calculateAction, null);
 
 	return (
-		<section className="p-5">
-			<h2>Perhitungan lajur survei menggunakan Single Beam Echo Sounder</h2>
-			<form action={formAction}>
-				<div className="flex flex-col gap-4">
-					<FormField label="Panjang area" name="areaHeight" />
-					<FormField label="Lebar area" name="areaWidth" />
-					<FormField
-						label="Skala peta (masukkan hanya angka perbandingannya, misalnya 1:1000 maka masukkan 1000)"
-						name="chartScaleDenominator"
-					/>
-					<FormField label="Kecepatan kapal (knot)" name="vesselSpeed" />
-					<FormField label="Waktu survei setiap hari (jam)" name="surveyTime" />
-					<FormField label="Menit per putaran" name="minutesPerTurn" />
+		<div className="px-4 py-10">
+			<div className="mx-auto max-w-2xl">
+				{/* Page header */}
+				<div className="mb-8 text-center">
+					<h1 className="text-3xl font-bold text-gray-900">Hydro Tools 24</h1>
+					<p className="mt-2 text-gray-500">
+						Perhitungan lajur survei menggunakan Single Beam Echo Sounder
+					</p>
 				</div>
-				<button type="submit" className="border-3 m-3">
-					Calculate
-				</button>
-			</form>
 
-			{results && (
-				<div>
-					<p>Main lines spacing {results.mainLineSpacing} m</p>
-					<p>Cross lines spacing {results.crossLineSpacing} m</p>
-					<p>Number of cross lines {results.numberOfCrossLines}</p>
-					<p>Number of main lines {results.numberOfMainLines}</p>
-					<p>Total survey distance {results.totalDistance / 1000} km</p>
-					<p>Total turn time {formatTime(results.totalTurnTime * 3600)}</p>
-					<p>Total survey time {formatTime(results.totalSurveyTime * 3600)}</p>
-					<p>Total days {formatTime(results.totalDays * 3600)}</p>
+				{/* Form card */}
+				<div className="rounded-2xl bg-white p-8 shadow-lg">
+					<h2 className="mb-6 text-lg font-semibold text-gray-800">
+						Parameter Survei
+					</h2>
+					<form action={formAction}>
+						<div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+							<FormField label="Panjang Area" name="areaHeight" unit="m" />
+							<FormField label="Lebar Area" name="areaWidth" unit="m" />
+							<FormField label="Skala Peta" name="chartScaleDenominator" />
+							<FormField
+								label="Kecepatan Kapal"
+								name="vesselSpeed"
+								unit="knot"
+							/>
+							<FormField
+								label="Waktu Survei per Hari"
+								name="surveyTime"
+								unit="jam"
+							/>
+							<FormField
+								label="Waktu per Putaran"
+								name="minutesPerTurn"
+								unit="menit"
+							/>
+						</div>
+						<button
+							type="submit"
+							className="mt-8 w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-blue-700 active:bg-blue-800"
+						>
+							Hitung
+						</button>
+					</form>
 				</div>
-			)}
-		</section>
+
+				{/* Results card */}
+				{results && (
+					<div className="mt-6 rounded-2xl bg-white p-8 shadow-lg">
+						<h2 className="mb-6 text-lg font-semibold text-gray-800">
+							Hasil Perhitungan
+						</h2>
+						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<ResultCard
+								label="Spasi Lajur Utama"
+								value={`${results.mainLineSpacing} m`}
+							/>
+							<ResultCard
+								label="Spasi Lajur Silang"
+								value={`${results.crossLineSpacing} m`}
+							/>
+							<ResultCard
+								label="Jumlah Lajur Utama"
+								value={results.numberOfMainLines}
+							/>
+							<ResultCard
+								label="Jumlah Lajur Silang"
+								value={results.numberOfCrossLines}
+							/>
+							<ResultCard
+								label="Total Jarak Survei"
+								value={`${(results.totalDistance / 1000).toFixed(0)} km`}
+							/>
+							<ResultCard
+								label="Total Waktu Putar"
+								value={formatTime(results.totalTurnTime * 3600)}
+							/>
+							<ResultCard
+								label="Total Waktu Survei"
+								value={formatTime(results.totalSurveyTime * 3600)}
+							/>
+							<ResultCard
+								label="Total Hari"
+								value={formatTime(results.totalDays * 3600)}
+							/>
+						</div>
+					</div>
+				)}
+			</div>
+		</div>
 	);
 }
