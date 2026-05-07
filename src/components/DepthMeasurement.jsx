@@ -148,6 +148,10 @@ export default function DepthMeasurement() {
 								value={formatTime(results.totalSurveyTime * 3600)}
 							/>
 							<ResultCard
+								label="Waktu Survei Lain-lain"
+								value={formatTime(results.miscSurveyTime * 3600)}
+							/>
+							<ResultCard
 								label="Total Hari"
 								value={convertDays(results.totalDays, results.surveyTime)}
 							/>

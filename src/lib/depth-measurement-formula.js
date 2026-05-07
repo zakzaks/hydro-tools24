@@ -19,15 +19,17 @@ export function formula(
 	// Rule 6: total distance = Number of tracks x Spacing (main line and cross line)
 	const totalDistance =
 		numberOfMainLines * areaWidth + numberOfCrossLines * areaHeight;
-	// Rule 7: Converting vessel speed from knots to Km/h = vesselSpeed x 1.852 and calculate total active survey time = total distance / vessel speed and got the result in hours
+	// Rule 7: Converting distance to miles and calculate total active survey time = total distance / vessel speed and got the result in hours
 	const totalDistanceInMile = totalDistance / 1000 / 1.852;
 	const totalActiveSurveyTime = totalDistanceInMile / vesselSpeed;
 	// Rule 8: Total turn time = (Total lines-1 x minutes per turn)/60, assuming minutes per turn is 5 minutes
 	const totalTurnTime = ((totalLines - 1) * minutesPerTurn) / 60;
 	// Rule 9: Total survey time = Total active survey time + Total turn time
 	const totalSurveyTime = totalActiveSurveyTime + totalTurnTime;
-	// Rule 9: Total days = (Total active survey time + Total turn time)/daily survey time
-	const totalDays = totalSurveyTime / surveyTime;
+	// Rule 10: Miscellaneous time = 10% of total survey time
+	const miscSurveyTime = totalSurveyTime * 0.1;
+	// Rule 11: Total days = (Total active survey time + Total turn time)/daily survey time
+	const totalDays = (totalSurveyTime + miscSurveyTime) / surveyTime;
 
 	return {
 		// inputs
@@ -45,6 +47,7 @@ export function formula(
 		totalDistance,
 		totalTurnTime,
 		totalSurveyTime,
+		miscSurveyTime,
 		totalDays,
 	};
 }
