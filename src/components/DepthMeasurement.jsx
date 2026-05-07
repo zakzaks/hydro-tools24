@@ -1,5 +1,5 @@
 import { useActionState } from "react";
-import { formatTime } from "../lib/date-converter";
+import { formatTime, convertDays } from "../lib/date-converter";
 import { formula } from "../lib/depth-measurement-formula";
 import FormField from "./FormField";
 
@@ -120,7 +120,7 @@ export default function DepthMeasurement() {
 							/>
 							<ResultCard
 								label="Total Hari"
-								value={formatTime(results.totalDays * 3600)}
+								value={convertDays(results.totalDays, results.surveyTime)}
 							/>
 						</div>
 					</div>
