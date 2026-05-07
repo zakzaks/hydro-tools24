@@ -30,6 +30,14 @@ export function formula(
 	const totalDays = totalSurveyTime / surveyTime;
 
 	return {
+		// inputs
+		areaHeight,
+		areaWidth,
+		chartScaleDenominator,
+		vesselSpeed,
+		surveyTime,
+		minutesPerTurn,
+		// outputs
 		mainLineSpacing,
 		crossLineSpacing,
 		numberOfMainLines,
@@ -38,6 +46,5 @@ export function formula(
 		totalTurnTime,
 		totalSurveyTime,
 		totalDays,
-		surveyTime,
 	};
 }

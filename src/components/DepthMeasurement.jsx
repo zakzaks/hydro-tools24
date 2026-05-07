@@ -88,7 +88,36 @@ export default function DepthMeasurement() {
 					<div className="mt-6 rounded-2xl bg-white p-8 shadow-lg">
 						<h2 className="mb-6 text-lg font-semibold text-gray-800">
 							Hasil Perhitungan
-						</h2>
+						</h2>{" "}
+						<h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+							Parameter Input
+						</h3>
+						<div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+							<ResultCard
+								label="Panjang Area"
+								value={`${results.areaHeight} m`}
+							/>
+							<ResultCard label="Lebar Area" value={`${results.areaWidth} m`} />
+							<ResultCard
+								label="Skala Peta"
+								value={`1 : ${results.chartScaleDenominator}`}
+							/>
+							<ResultCard
+								label="Kecepatan Kapal"
+								value={`${results.vesselSpeed} knot`}
+							/>
+							<ResultCard
+								label="Waktu Survei per Hari"
+								value={`${results.surveyTime} jam`}
+							/>
+							<ResultCard
+								label="Waktu per Putaran"
+								value={`${results.minutesPerTurn} menit`}
+							/>
+						</div>
+						<h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+							Hasil
+						</h3>{" "}
 						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 							<ResultCard
 								label="Spasi Lajur Utama"
