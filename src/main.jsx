@@ -5,8 +5,12 @@ import { RouterProvider } from "react-router/dom";
 
 import "./index.css";
 import App from "./App.jsx";
+import MBESMeasurement from "./components/MBESMeasurement.jsx";
 
-const router = createBrowserRouter([{ path: "/", element: <App /> }]);
+const router = createBrowserRouter([
+	{ path: "/", element: <App /> },
+	{ path: "/mbes", element: <MBESMeasurement /> },
+]);
 const root = document.getElementById("root");
 
 createRoot(root).render(
