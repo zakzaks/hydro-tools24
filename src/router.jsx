@@ -6,10 +6,9 @@ import MBESMeasurement from "./components/MBESMeasurement";
 
 export const router = createBrowserRouter([
 	{
-		path: "/",
 		element: <Layout />,
 		children: [
-			{ index: true, element: <SBESMeasurement /> },
+			{ path: "sbes", element: <SBESMeasurement /> },
 			{ path: "mbes", element: <MBESMeasurement /> },
 		],
 	},
